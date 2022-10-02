@@ -52,4 +52,15 @@ public class Account {
     public void withdraw(float amout) {
         balance -= amout;
     }
+
+    // TRATAMENTO DE EXCESSOES: RUIM (S/ USO DE TRY/CATCH)
+    public String validateWithdraw(float amount) {
+        if (amount > withdrawLimit) {
+            return "Withdraw error: The amount exceeds withdraw limit";
+        }
+        if (amount > balance) {
+            return "Withdraw error: Not enough balance";
+        }
+        return null;
+    }
 }
