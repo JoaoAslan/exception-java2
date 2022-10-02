@@ -28,7 +28,14 @@ public class Program {
         float amount = sc.nextFloat();
         acc.withdraw(amount);
 
-        System.out.println("New balance: $" + String.format("%.2f", acc.getBalance()));
+        // TRATAMENTO DE EXCESSOES: MUITO RUIM (SEM DELEGAÇÃO)
+        if (amount > acc.getWithdrawLimit()) {
+            System.out.println("Withdraw error: The amount exceeds withdraw limit");
+        } else if (amount > acc.getBalance()) {
+            System.out.println("Withdraw error: Not enough balance");
+        } else {
+            System.out.println("New balance: $" + String.format("%.2f", acc.getBalance()));
+        }
 
         sc.close();
     }
