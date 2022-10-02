@@ -1,5 +1,7 @@
 package exercicios.ex1.entities;
 
+import exercicios.ex1.exceptions.ServiceException;
+
 public class Account {
 
     private Integer number;
@@ -49,18 +51,18 @@ public class Account {
         balance += amount;
     }
 
-    public void withdraw(float amout) {
-        balance -= amout;
+    public void withdraw(float amount) {
+        validateWithdraw(amount);
+        balance -= amount;
     }
 
-    // TRATAMENTO DE EXCESSOES: RUIM (S/ USO DE TRY/CATCH)
-    public String validateWithdraw(float amount) {
+    // TRATAMENTO DE EXCESSOES CORRETO
+    private void validateWithdraw(float amount) {
         if (amount > withdrawLimit) {
-            return "Withdraw error: The amount exceeds withdraw limit";
+            throw new ServiceException("Withdraw error: The amount exceeds withdraw limit");
         }
         if (amount > balance) {
-            return "Withdraw error: Not enough balance";
+            throw new ServiceException("Withdraw error: Not enough balance");
         }
-        return null;
     }
 }
